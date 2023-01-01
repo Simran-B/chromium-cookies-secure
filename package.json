@@ -1,10 +1,13 @@
 {
-  "name": "chrome-cookies-secure",
+  "name": "chromium-cookies-secure",
   "version": "2.0.0",
-  "description": "Extract encrypted Google Chrome cookies for a url on a Mac or Linux",
+  "description": "Extract encrypted Chromium cookies for a URL on macOS, Linux, and Windows",
   "keywords": [
     "google",
     "chrome",
+    "chromium",
+    "microsoft",
+    "edge",
     "cookies",
     "encrypted",
     "curl",
@@ -25,7 +28,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/bertrandom/chrome-cookies-secure.git"
+    "url": "https://github.com/Simran-B/chromium-cookies-secure.git"
   },
   "dependencies": {
     "int": "^0.2.0",
