@@ -62,6 +62,7 @@ function getDerivedKey(callback) {
 	if (process.platform === 'darwin') {
 
 		keytar = require('keytar');
+		// TODO: 'Edge Safe Storage' ?!
 		keytar.getPassword('Chrome Safe Storage', 'Chrome').then(function(chromePassword) {
 			crypto.pbkdf2(chromePassword, SALT, ITERATIONS, KEYLENGTH, 'sha1', callback);
 		});
@@ -252,25 +253,29 @@ const getCookies = async (uri, format, callback, profile) => {
 
 	if (process.platform === 'darwin') {
 
-		path = process.env.HOME + `/Library/Application Support/Google/Chrome/${profile}/Cookies`;
+		//path = process.env.HOME + `/Library/Application Support/Google/Chrome/${profile}/Cookies`;
+		path = process.env.HOME + `/Library/Application Support/Microsoft/Edge/${profile}/Cookies`;
 		ITERATIONS = 1003;
 	
 	} else if (process.platform === 'linux') {
 	
+		// TODO: microsoft-edge ?!
 		path = process.env.HOME + `/.config/google-chrome/${profile}/Cookies`;
 		ITERATIONS = 1;
 	
 	} else if (process.platform === 'win32') {
 
-		path = os.homedir() + `\\AppData\\Local\\Google\\Chrome\\User Data\\${profile}\\Network\\Cookies`;
+		//path = os.homedir() + `\\AppData\\Local\\Google\\Chrome\\User Data\\${profile}\\Network\\Cookies`;
+		path = os.homedir() + `\\AppData\\Local\\Microsoft\\Edge\\User Data\\${profile}\\Network\\Cookies`;
 		
 		if (!fs.existsSync(path)) {
-			path = os.homedir() + `\\AppData\\Local\\Google\\Chrome\\User Data\\${profile}\\Cookies`;
+			//path = os.homedir() + `\\AppData\\Local\\Google\\Chrome\\User Data\\${profile}\\Cookies`;
+			path = os.homedir() + `\\AppData\\Local\\Microsoft\\Edge\\User Data\\${profile}\\Cookies`;
 		}
 		
 	} else {
 	
-		return callback(new Error('Only Mac, Windows, and Linux are supported.'));
+		return callback(new Error('Only macOS, Windows, and Linux are supported.'));
 	
 	}
 
@@ -329,7 +334,7 @@ const getCookies = async (uri, format, callback, profile) => {
 							cookie.value = dpapi.unprotectData(encryptedValue, null, 'CurrentUser').toString('utf-8');
 
 						} else if (encryptedValue[0] == 0x76 && encryptedValue[1] == 0x31 && encryptedValue[2] == 0x30 ){
-							localState = JSON.parse(fs.readFileSync(os.homedir() + '/AppData/Local/Google/Chrome/User Data/Local State'));
+							localState = JSON.parse(fs.readFileSync(os.homedir() + '/AppData/Local/Microsoft/Edge/User Data/Local State'));
 							b64encodedKey = localState.os_crypt.encrypted_key;
 							encryptedKey = new Buffer.from(b64encodedKey,'base64');
 							key = dpapi.unprotectData(encryptedKey.slice(5, encryptedKey.length), null, 'CurrentUser');
