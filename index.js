@@ -203,10 +203,10 @@ function convertRawToPuppeteerState(cookies) {
 			path: cookie.path
 		}
 		if (cookie.is_secure) {
-			newCookieObject['Secure'] = true
+			newCookieObject['secure'] = true
 		}
 		if (cookie.is_httponly) {
-			newCookieObject['HttpOnly'] = true
+			newCookieObject['httpOnly'] = true
 		}
         puppeteerCookies.push(newCookieObject)
 	})
