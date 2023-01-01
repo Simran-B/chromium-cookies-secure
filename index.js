@@ -175,11 +175,11 @@ function convertRawToSetCookieStrings(cookies) {
 		out += 'path=' + cookie.path;
 
 		if (cookie.is_secure) {
-			out += '; Secure';
+			out += '; secure';
 		}
 
 		if (cookie.is_httponly) {
-			out += '; HttpOnly';
+			out += '; httpOnly';
 		}
 
 		strings.push(out);
